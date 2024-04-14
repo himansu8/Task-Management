@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "firstName": "Himansu",
+        "lastName": "Sekhar Sahu",
+        "email": "himansusekharsahu50@gmail.com",
+        "phone": "+917438023456",
+        "password": "*********",
+        "task": [
+            {
+                "taskId": 1,
+                "taskName": "Learn Express",
+                "taskCreationDate": "26.12.2023",
+                "taskdeadlinedate": "26.01.2024",
+                "isCompleted": false,
+                "reminder": [
+                    "05.01.2024",
+                    "12.01.2024",
+                    "20.01.2024",
+                    "26.01.2024"
+                ]
+            }
+        ]
+    },
+
+    {
+        "id": 2,
+        "firstName": "Rajaram",
+        "lastName": "Sahoo",
+        "email": "rajaramsahoo1998@gmail.com",
+        "phone": "+917008309629",
+        "password": "*********",
+        "task": [
+            {
+                "taskId": 1,
+                "taskName": "Learn Express",
+                "taskCreationDate": "26.12.2023",
+                "taskdeadlinedate": "26.01.2024",
+                "isCompleted": false,
+                "reminder": [
+                    "05.01.2024",
+                    "12.01.2024",
+                    "20.01.2024",
+                    "26.01.2024"
+                ]
+            },
+            {
+                "taskId": 2,
+                "taskName": "Learn MangoDb",
+                "taskCreationDate": "26.12.2023",
+                "taskdeadlinedate": "26.01.2024",
+                "isCompleted": false,
+                "reminder": [
+                    "05.01.2024",
+                    "12.01.2024",
+                    "20.01.2024",
+                    "26.01.2024"
+                ]
+            }
+        ]
+    }
+]

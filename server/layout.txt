@@ -1,0 +1,94 @@
+------------Project Desc----------------
+- User Authentication
+- User Register / Login 
+- Task CRUD Operations
+- Task Deadlines and Reminders
+- SMS service, email service and scheduling. 
+
+------------------APIs--------------------
+userRoutes
+    - signup / register (DONE)
+    - login (DONE)
+
+taskRoutes (Create Read Update Delete)
+    - Create a Task 
+    - Get a Single Task
+    - Get all Tasks
+    - update / Edit the Task 
+    - Delete a Task
+
+task is less 30 min and greater than 30min throw error
+if not return true
+
+-----------------Data Model----------------
+
+userModel:::::::
+_id : String (Primary key)
+firstName: String
+lastName: String
+email: String (Unique)
+phone: String (+91XXXXXXX)  (Unique)
+password: String
+
+
+taskModel:::::::
+userId: userModel _id
+tasks : [
+    {
+        taskName: String
+        taskId: String
+        taskCreatedDate: Date
+        taskDeadlineDate: Date
+        isCompleted: Boolean
+        reminders: [ reminder1, reminder2, reminder3, deadline ]
+    }
+]
+
+--------------Reminders Notification Logic---------------
+taskCreated Date: 1st Jan
+1/4 : 3rd Jan  :reminder1
+1/2 : 5th Jan  :reminder2
+3/4 : 8th Jan  :reminder3
+task Deadline Date: 10th Jan :deadline
+
+
+--------------------------
+localhost:3000/api/task : POST : create a single task
+localhost:3000/api/task : GET  : get all task
+
+localhost:3000/api/task/:taskId : GET : get a single task
+localhost:3000/api/task/:taskId : PATCH : editing a single task
+localhost:3000/api/task/:taskId : DELETE : deleting a single task
+
+--------------------------
+REST API
+
+
+----------27-12-2023----------------
+express-validators
+complete task routes: create , get all task
+
+
+----------28-12-2023----------------
+node-schedule
+
+Assignment:
+Get All Task
+Get Single Task
+
+
+----------29-12-2023----------------
+deleteTask API
+send email and SMS
+
+----------30-12-2023----------------
+
+Assignment:
+Get All Task :: Read Operation
+Get Single Task :: Read Operation
+Edit a single task :: Write Operation
+
+
+
+----------1-1-2024----------------
+Add validations
