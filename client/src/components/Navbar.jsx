@@ -6,7 +6,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 //import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaUserCircle } from 'react-icons/fa';
 function Header() {
@@ -80,7 +80,7 @@ function Header() {
       className={`bg-body-tertiary`}
     >
       <Container>
-        <Navbar.Brand href="home">TASK MANAGER HOME</Navbar.Brand>
+        <Navbar.Brand href="/">TASK MANAGER HOME</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

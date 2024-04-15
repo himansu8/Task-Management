@@ -125,7 +125,7 @@ function Home() {
       <CreateTaskModal
         handleCreateModalClose={handleCreateModalClose}
         showCreateModal={showCreateModal}
-        fetchTasks={fetchTasks()}
+        setTasks={setTasks}
       />
       <UpdateTaskmodal
         handleUpdateModalClose={handleUpdateModalClose}
@@ -134,6 +134,7 @@ function Home() {
         taskName={updatedTaskName}
         deadline={updatedDeadline}
         setTasks={setTasks}
+        fetchTasks={fetchTasks}
       />
       <ViewTaskModal
         handleViewModalClose={handleViewModalClose}

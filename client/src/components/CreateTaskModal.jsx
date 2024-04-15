@@ -2,7 +2,7 @@ import axios from "axios";
 import React, {  useState } from "react";
 import { Button, Modal, Stack } from "react-bootstrap";
 import toast from "react-hot-toast";
-function CreateTaskModal({ showCreateModal, handleCreateModalClose }) {
+function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
 
     let [formData, setFormData] = useState({
         taskName: "",
@@ -23,8 +23,9 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose }) {
             //console.log(formData)
             let res = await axios.post('/api/task', formData)
             console.log(res.data)
-            handleCreateModalClose();
+            setTasks((prevTasks) => [...prevTasks, res.data.task]);
             toast.success(res.data.msg);
+            handleCreateModalClose();
         }
         catch (error) {
             let errorString = "";

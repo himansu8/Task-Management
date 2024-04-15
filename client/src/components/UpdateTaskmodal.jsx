@@ -4,22 +4,14 @@ import { Button, Modal, Stack } from "react-bootstrap";
 import toast from "react-hot-toast";
 
 
-function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose, id, setTasks, taskName, deadline }) {
-    let dealline2 = String(deadline).slice(0,16)
-    let deadline1 = dealline2.toLocaleString("en-US", {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        // second: '2-digit',
-        timeZone: 'Asia/Kolkata'
-    });
+function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose,fetchTasks, id, setTasks, taskName, deadline }) {
+
     const [data, setData] = useState({
-        updateTaskName: taskName,
-        taskDeadLine: deadline1,
+        updateTaskName:taskName,
+        taskDeadLine: deadline,
         newIsCompleted: "false",
     })
+
     function onChangeHandler(e) {
         console.log(e.target.name, e.target.value)
         setData({
@@ -31,13 +23,19 @@ function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose, id, setTasks
 
         try {
             let res = await axios.patch(`/api/task/${taskid}`, data);
-            console.log(res.data)
+            console.log(taskid)
             handleUpdateModalClose()
+            console.log(res.data)
+            setTasks(res.data.task);
+            fetchTasks()
             toast.success(res.data.msg)
         } catch (error) {
             console.log(error);
         }
     };
+    console.log("taskName prop:", taskName);
+console.log("data state:", data);
+
     return (
         <>
         <Modal show={showUpdateModal} onHide={handleUpdateModalClose}>
@@ -50,14 +48,14 @@ function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose, id, setTasks
               <input
                 type="text"
                 placeholder="New task name"
-                name="updateTaskName" value={data.updateTaskName} onChange={onChangeHandler}
+                name="updateTaskName" value={taskName} onChange={onChangeHandler}
               />
             </Stack>
             <br />
             <Stack gap={2}>
               <label>Deadline</label>
               <input
-                type="datetime-local" placeholder="Enter Deadline" name="taskDeadLine" value={data.taskDeadLine} onChange={onChangeHandler}
+                type="datetime-local" placeholder="Enter Deadline" name="taskDeadLine"  onChange={onChangeHandler}
               />
             </Stack>
             <br />
