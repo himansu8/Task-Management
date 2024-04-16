@@ -48,7 +48,7 @@ console.log("data state:", data);
               <input
                 type="text"
                 placeholder="New task name"
-                name="updateTaskName" value={taskName} onChange={onChangeHandler}
+                name="updateTaskName" value={data.taskName} onChange={onChangeHandler}
               />
             </Stack>
             <br />

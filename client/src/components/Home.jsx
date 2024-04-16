@@ -7,13 +7,14 @@ import { MdEdit, MdDelete } from "react-icons/md";
 //import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import {  Button  } from "react-bootstrap";
+import {  Button,Dropdown   } from "react-bootstrap";
 import ViewTaskModal from "./ViewTaskModal";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskmodal from "./UpdateTaskmodal";
 function Home() {
 
   const [tasks, setTasks] = useState([]);
+  const [taskTitle, setTaskTitle ] = useState("")
   async function fetchTasks() {
     try {
       let res = await axios.get('/api/task')
@@ -27,6 +28,7 @@ function Home() {
   }, [])
   const [showViewModal, setShowViewModal] = useState(false);
   const [viewTaskId, setViewTaskId] = useState(null);
+
   //let navigate = useNavigate();
   const handleViewModalClose = () => setShowViewModal(false);
   const handleViewModalShow = (id) => {
@@ -69,20 +71,59 @@ function Home() {
       console.log(error);
     }
   }
+  const filterTasks = async (filterType) => {
+    let res = await axios.get('/api/task');
+    let tasksData = res.data;
+    let filteredTasks = [];
+
+    switch (filterType) {
+      case "completed":
+        filteredTasks = tasksData.filter((task) => task.isCompleted );
+        setTaskTitle("Completed Tasks");
+        break;
+      case "incomplete":
+        filteredTasks = tasksData.filter((task) => !task.isCompleted);
+        setTaskTitle("Incomplete Tasks");
+        break;
+      case "all":
+        filteredTasks = tasksData;
+        setTaskTitle("Tasks");
+        break;
+      default:
+        filteredTasks = tasks;
+    }
+    setTasks(filteredTasks);
+  };
 
   return (
     <Container fluid>
       <Container>
         <Row>
           <div className="col-lg-12">
-            <h1>Tasks</h1>
+            <h1>{taskTitle}</h1>
           </div>
         </Row>
+        
         <Row>
           <div className="col-lg-12 text-end mb-3">
             <Button variant="primary" onClick={handleCreateModalShow}>
               Create Task
             </Button>
+            
+          </div>
+        </Row>
+        <Row>
+          <div className="col-lg-12 mb-3">
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                Filter
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => filterTasks("all")}>All Tasks</Dropdown.Item>
+                <Dropdown.Item onClick={() => filterTasks("completed")}>Completed Tasks</Dropdown.Item>
+                <Dropdown.Item onClick={() => filterTasks("incomplete")}>Incomplete Tasks</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </Row>
         <Row>
