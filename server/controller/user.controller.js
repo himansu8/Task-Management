@@ -106,6 +106,7 @@ export const login = async (req, res) => {
         var { password, ...otherDetails } = emailFound._doc;
         res.cookie("access_token", token, {
             httpOnly: true,
+            sameSite: 'none'
         }).status(200).json({ details: { ...otherDetails } });
     } catch (error) {
         console.log(error)

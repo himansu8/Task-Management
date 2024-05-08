@@ -13,7 +13,7 @@ function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose,fetchTasks, i
     })
 
     function onChangeHandler(e) {
-        console.log(e.target.name, e.target.value)
+        // console.log(e.target.name, e.target.value)
         setData({
             ...data,
             [e.target.name]: e.target.value
@@ -22,12 +22,20 @@ function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose,fetchTasks, i
     const inputData = async (taskid) => {
 
         try {
-            let res = await axios.patch(`/api/task/${taskid}`, data);
-            console.log(taskid)
+            let res = await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/task/${taskid}`, data);
+            // console.log(taskid)
             handleUpdateModalClose()
-            console.log(res.data)
-            setTasks(res.data.task);
-            fetchTasks()
+            // console.log("======================>",res.data.task)
+            setTasks((prevTasks) => {
+              let pTask = [...prevTasks];
+              let taskIndex = pTask.findIndex((ele)=> ele._id == res.data.task._id);
+              pTask[taskIndex] = res.data.task
+              return pTask
+            }
+          );
+
+            //find the id and update
+            // fetchTasks()
             toast.success(res.data.msg)
         } catch (error) {
             console.log(error);

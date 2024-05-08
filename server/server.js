@@ -1,5 +1,6 @@
 //const express = require('express')
 import express from 'express'
+import cors from 'cors'
 import userRoute from './routes/user.route.js'
 import taskRoute from './routes/task.route.js'
 import './dbConnect.js';
@@ -11,6 +12,20 @@ const port = 3001;
 app.use(cookieParser())
 
 app.use(express.json());
+
+var whitelist = ['http://localhost:3000'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+
+app.use(cors(corsOptions));
 
 app.get('/',(req,res)=>{
     res.status(200).send("server started up fine")

@@ -8,7 +8,7 @@ function ViewTaskModal({ showViewModal, handleViewModalClose, id }) {
     const fetchTask = async (id) => {
 
         try {
-            let res = await axios.get(`/api/task/${id}`);
+            let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task/${id}`);
             setTask(res.data);
             console.log(res.data)
         } catch (error) {

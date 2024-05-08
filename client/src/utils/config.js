@@ -1,6 +1,3 @@
-import 'dotenv/config'
-
-
 const config = {
     MONGO_URL : process.env.MONGODB_URI,
     TWILIO_SID : process.env.TWILIO_SID,
@@ -13,7 +10,5 @@ const config = {
     JWT_EXPIRY : process.env.JWT_EXPIRY,
     BASE_URL : process.env.BASE_URL
 }
-
-console.log(config)
 
 export default config;

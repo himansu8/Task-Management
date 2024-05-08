@@ -50,7 +50,7 @@ export async function createTask(req, res) {
         let task = await taskModel.create(taskObj);
 
 
-        res.status(200).json({ msg: "task created successfylly" })
+        res.status(200).json({ msg: "task created successfylly", task })
 
         let userMailBody = {
             to: userFound.email,
@@ -192,7 +192,7 @@ export async function updateTask(req, res) {
         console.log("my reminder >>>> ", schedule.scheduledJobs);
         
 
-        res.status(200).json({ msg: "task updated successfylly" })
+        res.status(200).json({ msg: "task updated successfylly", task })
 
     } catch (error) {
         console.log(error);

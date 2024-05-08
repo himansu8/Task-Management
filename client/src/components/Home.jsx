@@ -12,12 +12,13 @@ import ViewTaskModal from "./ViewTaskModal";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskmodal from "./UpdateTaskmodal";
 function Home() {
+  console.log(process.env.REACT_APP_BASE_URL);
 
   const [tasks, setTasks] = useState([]);
   const [taskTitle, setTaskTitle ] = useState("")
   async function fetchTasks() {
     try {
-      let res = await axios.get('/api/task')
+      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`)
       setTasks(res.data)
     } catch (error) {
       console.log(error)
@@ -32,7 +33,7 @@ function Home() {
   //let navigate = useNavigate();
   const handleViewModalClose = () => setShowViewModal(false);
   const handleViewModalShow = (id) => {
-    console.log(id)
+    // console.log(id)
     setViewTaskId(id);
     setShowViewModal(true);
   };
@@ -60,19 +61,19 @@ function Home() {
 
   async function deleteTask(taskId) {
     try {
-      const res = await axios.delete(`/api/task/${taskId}`);
+      const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/task/${taskId}`);
 
       let updatedTasks = tasks.filter((ele) => ele._id !== taskId);
       setTasks(updatedTasks);
       //fetchTasks(); // Refresh the tasks after deleting a task
-      console.log(res)
+      // console.log(res)
       toast.success(res.data.msg);
     } catch (error) {
       console.log(error);
     }
   }
   const filterTasks = async (filterType) => {
-    let res = await axios.get('/api/task');
+    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`);
     let tasksData = res.data;
     let filteredTasks = [];
 
@@ -94,6 +95,8 @@ function Home() {
     }
     setTasks(filteredTasks);
   };
+
+  // console.log(tasks)
 
   return (
     <Container fluid>

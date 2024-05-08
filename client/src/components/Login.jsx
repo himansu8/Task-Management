@@ -38,8 +38,8 @@ function Login() {
 
       //   return;
       // }
-      let res = await axios.post('/api/user/login', userData)
-      console.log(res.data.details)
+      let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, userData)
+      // console.log(res.data.details)
       dispatch({ type: "LOGIN_SUCCESS", payload: res?.data?.details })
       toast.success("You are Loged In !")
       navigate('/');

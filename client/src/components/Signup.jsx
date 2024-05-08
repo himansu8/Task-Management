@@ -29,8 +29,8 @@ function Signup({ isAuthenticated, setIsAuthenticated }) {
   async function onClick(e) {
     try {
       e.preventDefault();
-      console.log(formData)
-      let res = await axios.post('/api/user/signup', formData)
+      // console.log(formData)
+      let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user/signup`, formData)
       console.log(res.data)
       setIsAuthenticated(true);
       window.alert("You have successfully registered")

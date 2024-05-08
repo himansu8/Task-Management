@@ -11,7 +11,7 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
     const { taskName, taskDeadLine } = formData;
 
     function onChangeHandler(e) {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
@@ -21,8 +21,8 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
         try {
             e.preventDefault();
             //console.log(formData)
-            let res = await axios.post('/api/task', formData)
-            console.log(res.data)
+            let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/task`, formData)
+            // console.log("------------------>",res.data)
             setTasks((prevTasks) => [...prevTasks, res.data.task]);
             toast.success(res.data.msg);
             handleCreateModalClose();

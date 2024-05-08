@@ -9,6 +9,7 @@ const {MONGO_URL} = config
 async function dbConnect() {
 
     try {
+        console.log(MONGO_URL);
         await mongoose.connect(MONGO_URL);
         console.log("DB connected successfully");
     } catch (error) {
