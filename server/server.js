@@ -13,23 +13,21 @@ app.use(cookieParser())
 
 app.use(express.json());
 
-var whitelist = ['http://localhost:3000'];
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
+const corsOptions = {
+  origin: 'http://localhost:3000', // Whitelisted origin
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true // Allow credentials (cookies, authorization headers)
+};
 
 
-// app.use(cors(corsOptions));
+  app.use(cors(corsOptions));
+  app.options('*', cors(corsOptions));
 
 app.get('/',(req,res)=>{
     res.status(200).send("server started up fine")
 })
+
 
 app.use('/api/user',userRoute)
 app.use('/api/task',taskRoute)

@@ -189,7 +189,7 @@ export async function updateTask(req, res) {
             //console.log("reshedule")
         }
 
-        console.log("my reminder >>>> ", schedule.scheduledJobs);
+        // console.log("my reminder >>>> ", schedule.scheduledJobs);
         
 
         res.status(200).json({ msg: "task updated successfylly", task })

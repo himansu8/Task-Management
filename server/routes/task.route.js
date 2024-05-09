@@ -33,7 +33,7 @@ description: update a single task
 method :patch
 api_url: api/task/:taskid
 */
-router.patch('/:taskid',authMiddleware,updateTask);
+router.put('/:taskid',authMiddleware,updateTask);
 
 /*
 description: delete a single task

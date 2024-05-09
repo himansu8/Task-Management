@@ -21,7 +21,7 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
         try {
             e.preventDefault();
             //console.log(formData)
-            let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/task`, formData)
+            let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/task`, formData, { withCredentials: true })
             // console.log("------------------>",res.data)
             setTasks((prevTasks) => [...prevTasks, res.data.task]);
             toast.success(res.data.msg);

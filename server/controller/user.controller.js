@@ -102,12 +102,14 @@ export const login = async (req, res) => {
             { user_id: emailFound._id },
             config.PRIVATE_KEY
         );
-        console.log(token)
+       // console.log(token)
         var { password, ...otherDetails } = emailFound._doc;
         res.cookie("access_token", token, {
             httpOnly: true,
-            sameSite: 'none'
-        }).status(200).json({ details: { ...otherDetails } });
+            sameSite: 'none', 
+            secure:true,
+            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        }).status(200).json( { token, details: { ...otherDetails } });
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: 'something went wrong' });

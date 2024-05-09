@@ -14,6 +14,6 @@ const config = {
     BASE_URL : process.env.BASE_URL
 }
 
-console.log(config)
+//console.log(config)
 
 export default config;

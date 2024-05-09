@@ -37,7 +37,7 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const removeToken = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/removetoken`)
+      const removeToken = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/removetoken`, { withCredentials: true })
       if (removeToken) {
         dispatch({ type: "LOGOUT" })
         navigate('/');

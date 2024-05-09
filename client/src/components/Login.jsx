@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext'
 function Login() {
   let navigate = useNavigate();
   const {  dispatch } = useContext(AuthContext)
-
+  console.log(process.env.REACT_APP_BASE_URL)
   let [userData, setUserData] = useState({
     email: undefined,
     password: undefined
@@ -39,11 +39,14 @@ function Login() {
       //   return;
       // }
       let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, userData)
-      // console.log(res.data.details)
-      dispatch({ type: "LOGIN_SUCCESS", payload: res?.data?.details })
+       console.log(res.data)
+       const { token, details } = res.data;
+       document.cookie = `access_token=${token}; path=/; secure;`;
+      dispatch({ type: "LOGIN_SUCCESS", payload:details })
       toast.success("You are Loged In !")
       navigate('/');
     }
+
 
     catch (error) {
       dispatch({ type: "LOGIN_failure", payload: error.response.data })

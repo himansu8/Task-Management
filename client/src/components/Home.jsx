@@ -12,13 +12,13 @@ import ViewTaskModal from "./ViewTaskModal";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskmodal from "./UpdateTaskmodal";
 function Home() {
-  console.log(process.env.REACT_APP_BASE_URL);
+  //console.log(process.env.REACT_APP_BASE_URL);
 
   const [tasks, setTasks] = useState([]);
   const [taskTitle, setTaskTitle ] = useState("")
   async function fetchTasks() {
     try {
-      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`)
+      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`,{ withCredentials: true })
       setTasks(res.data)
     } catch (error) {
       console.log(error)
@@ -61,7 +61,7 @@ function Home() {
 
   async function deleteTask(taskId) {
     try {
-      const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/task/${taskId}`);
+      const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/task/${taskId}`, { withCredentials: true });
 
       let updatedTasks = tasks.filter((ele) => ele._id !== taskId);
       setTasks(updatedTasks);
@@ -73,7 +73,7 @@ function Home() {
     }
   }
   const filterTasks = async (filterType) => {
-    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`);
+    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`, { withCredentials: true });
     let tasksData = res.data;
     let filteredTasks = [];
 
