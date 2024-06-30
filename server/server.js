@@ -30,7 +30,7 @@ const corsOptions = {
 
 
    app.use(cors(corsOptions));
-  //app.options('*', cors(corsOptions));
+  app.options('*', cors(corsOptions));
 
 // app.get('/',(req,res)=>{
 //     res.status(200).send("server started up fine")
