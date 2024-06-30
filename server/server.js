@@ -5,6 +5,8 @@ import userRoute from './routes/user.route.js'
 import taskRoute from './routes/task.route.js'
 import './dbConnect.js';
 import cookieParser from 'cookie-parser';
+import path from 'node:path'
+import * as url from 'url';
 
 const app = express();
 const port = 3001;
@@ -27,20 +29,24 @@ const corsOptions = {
 };
 
 
-  app.use(cors(corsOptions));
+  // app.use(cors(corsOptions));
   //app.options('*', cors(corsOptions));
 
-app.get('/',(req,res)=>{
-    res.status(200).send("server started up fine")
-})
+// app.get('/',(req,res)=>{
+//     res.status(200).send("server started up fine")
+// })
 
 
 app.use('/api/user',userRoute)
 app.use('/api/task',taskRoute)
 
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+
+app.get('/*', express.static(path.join(__dirname, 'build')))
 
 
 app.listen(port,()=>{
     console.log(`the server started at port no ${port}`)
 })
+
