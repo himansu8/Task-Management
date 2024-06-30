@@ -14,7 +14,7 @@ app.use(cookieParser())
 app.use(express.json());
 
 const corsOptions = {
-  origin: '*', // Whitelisted origin
+  origin: 'http://43.204.100.160:3000', // Whitelisted origin
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true // Allow credentials (cookies, authorization headers)
@@ -22,7 +22,7 @@ const corsOptions = {
 
 
   app.use(cors(corsOptions));
-  app.options('*', cors(corsOptions));
+  // app.options('*', cors(corsOptions));
 
 app.get('/',(req,res)=>{
     res.status(200).send("server started up fine")
