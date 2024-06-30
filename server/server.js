@@ -14,7 +14,7 @@ app.use(cookieParser())
 app.use(express.json());
 
 const corsOptions = {
-  origin: 'http://localhost:3000', // Whitelisted origin
+  origin: '*', // Whitelisted origin
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true // Allow credentials (cookies, authorization headers)
