@@ -12,12 +12,18 @@ const port = 3001;
 app.use(cookieParser())
 
 app.use(express.json());
-
+var whitelist = ['http://localhost:3000', 'http://43.204.100.160:3000']
 const corsOptions = {
-  origin: 'http://localhost:3000', // Whitelisted origin
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true // Allow credentials (cookies, authorization headers)
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  // methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  // allowedHeaders: ['Content-Type', 'Authorization'],
+  // credentials: true // Allow credentials (cookies, authorization headers)
 };
 
 
