@@ -27,9 +27,9 @@ const private_key= config.PRIVATE_KEY
 
 export function authMiddleware(req, res, next) {
     //console.log("header------------",req.headers.authorization);
-    //console.log(req.headers)
+    console.log(req.headers)
     const token = req.cookies.access_token;
-    //console.log("cookiesss token:::",token)
+    console.log("cookiesss token:::",token)
     if (!token) {
       return res.status(401).json({error:"You are not authenticated!"}) ;
     }
