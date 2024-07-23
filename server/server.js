@@ -29,7 +29,10 @@ const corsOptions = {
 };
 
 
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
 // app.options('*', cors(corsOptions));
 
 // app.get('/',(req,res)=>{
