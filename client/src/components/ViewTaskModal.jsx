@@ -8,7 +8,13 @@ function ViewTaskModal({ showViewModal, handleViewModalClose, id }) {
     const fetchTask = async (id) => {
 
         try {
-            let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task/${id}`, { withCredentials: true });
+
+            const token = JSON.parse(localStorage.getItem('token')).token;
+            let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task/${id}`, {
+                headers: {
+                    authorization: `bearer ${token}`
+                }
+            });
             setTask(res.data);
             console.log(res.data)
         } catch (error) {

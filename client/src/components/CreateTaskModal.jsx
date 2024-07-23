@@ -1,8 +1,8 @@
 import axios from "axios";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Button, Modal, Stack } from "react-bootstrap";
 import toast from "react-hot-toast";
-function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
+function CreateTaskModal({ showCreateModal, handleCreateModalClose, setTasks }) {
 
     let [formData, setFormData] = useState({
         taskName: "",
@@ -21,7 +21,12 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
         try {
             e.preventDefault();
             //console.log(formData)
-            let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/task`, formData, { withCredentials: true })
+            const token = JSON.parse(localStorage.getItem('token')).token;
+            let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/task`, formData, {
+                headers: {
+                    authorization: `bearer ${token}`
+                }
+            })
             // console.log("------------------>",res.data)
             setTasks((prevTasks) => [...prevTasks, res.data.task]);
             toast.success(res.data.msg);
@@ -38,7 +43,7 @@ function CreateTaskModal({ showCreateModal, handleCreateModalClose,setTasks }) {
                 //   type: "error",
                 //   msg: errorString
                 // })
-               // window.alert(errorString)
+                // window.alert(errorString)
                 toast.error(errorString)
 
             }

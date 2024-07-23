@@ -7,7 +7,7 @@ import { MdEdit, MdDelete } from "react-icons/md";
 //import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import {  Button,Dropdown   } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import ViewTaskModal from "./ViewTaskModal";
 import CreateTaskModal from "./CreateTaskModal";
 import UpdateTaskmodal from "./UpdateTaskmodal";
@@ -15,10 +15,18 @@ function Home() {
   //console.log(process.env.REACT_APP_BASE_URL);
 
   const [tasks, setTasks] = useState([]);
-  const [taskTitle, setTaskTitle ] = useState("")
+  const [taskTitle, setTaskTitle] = useState("")
   async function fetchTasks() {
     try {
-      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`,{ withCredentials: true })
+      // let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`,{ withCredentials: true })
+      const token = JSON.parse(localStorage.getItem('token')).token;
+      let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`,
+        {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        }
+      )
       setTasks(res.data)
     } catch (error) {
       console.log(error)
@@ -50,9 +58,9 @@ function Home() {
   const [updatedDeadline, setUpdatedDeadline] = useState(null);
 
   const handleUpdateModalClose = () => setShowUpdateModal(false);
-  
+
   const handleUpdateModalShow = (id, taskName, deadline) => {
-    
+
     setUpdateTaskId(id);
     setUpdatedTaskName(taskName);
     setUpdatedDeadline(deadline);
@@ -61,7 +69,12 @@ function Home() {
 
   async function deleteTask(taskId) {
     try {
-      const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/task/${taskId}`, { withCredentials: true });
+      const token = JSON.parse(localStorage.getItem('token')).token;
+      const res = await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/task/${taskId}`, {
+        headers: {
+          authorization: `bearer ${token}`
+        }
+      });
 
       let updatedTasks = tasks.filter((ele) => ele._id !== taskId);
       setTasks(updatedTasks);
@@ -73,13 +86,19 @@ function Home() {
     }
   }
   const filterTasks = async (filterType) => {
-    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`, { withCredentials: true });
+    // let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`, { withCredentials: true });
+    const token = JSON.parse(localStorage.getItem('token')).token;
+    let res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/task`, {
+      headers: {
+        authorization: `bearer ${token}`
+      }
+    });
     let tasksData = res.data;
     let filteredTasks = [];
 
     switch (filterType) {
       case "completed":
-        filteredTasks = tasksData.filter((task) => task.isCompleted );
+        filteredTasks = tasksData.filter((task) => task.isCompleted);
         setTaskTitle("Completed Tasks");
         break;
       case "incomplete":
@@ -106,13 +125,13 @@ function Home() {
             <h1>{taskTitle}</h1>
           </div>
         </Row>
-        
+
         <Row>
           <div className="col-lg-12 text-end mb-3">
             <Button variant="primary" onClick={handleCreateModalShow}>
               Create Task
             </Button>
-            
+
           </div>
         </Row>
         <Row>

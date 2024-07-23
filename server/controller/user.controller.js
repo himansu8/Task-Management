@@ -97,19 +97,19 @@ export const login = async (req, res) => {
         // }
         // const token = generationToken(payload)
 
-        // res.status(200).json({ msg: 'user login successfully', token });
         const token = jwt.sign(
             { user_id: emailFound._id },
             config.PRIVATE_KEY
         );
-        // console.log(token)
         var { password, ...otherDetails } = emailFound._doc;
-        res.cookie("access_token", token, {
-            httpOnly: true,
-            sameSite: 'lax',
-            secure: false,
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        }).status(200).json({ token, details: { ...otherDetails } });
+        res.status(200).json({ msg: 'user login successfully', token, details: { ...otherDetails } });
+
+        // res.cookie("access_token", token, {
+        //     httpOnly: true,
+        //     sameSite: 'lax',
+        //     secure: false,
+        //     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        // }).status(200).json({ token, details: { ...otherDetails } });
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: 'something went wrong' });

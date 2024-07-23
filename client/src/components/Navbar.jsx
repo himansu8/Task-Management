@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useContext} from "react";
+import { useContext } from "react";
 //import { Button, Stack } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -37,7 +37,12 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      const removeToken = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/removetoken`, { withCredentials: true })
+      const token = JSON.parse(localStorage.getItem('token'));
+      const removeToken = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/user/removetoken`, {
+        headers: {
+          authorization: `Bearer ${token}`
+        }
+      })
       if (removeToken) {
         dispatch({ type: "LOGOUT" })
         navigate('/');
@@ -84,7 +89,7 @@ function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          {/* <Nav.Item>
+            {/* <Nav.Item>
               <Link
                 to={"/"}
                 className="nav-link text-decoration-none link-light"
@@ -101,17 +106,17 @@ function Header() {
               </NavDropdown>
             </Nav.Item> */}
 
-            </Nav>
-            {user && (
+          </Nav>
+          {user && (
             <Nav>
               <NavDropdown
                 title={
-                  <span style={{ fontWeight: "bold", color: "white",fontSize: "1.1rem", marginRight: "10px" }}>
-                    <FaUserCircle style={{fontSize: "1.5rem", marginRight: "5px" }} /> {user.firstName}
+                  <span style={{ fontWeight: "bold", color: "white", fontSize: "1.1rem", marginRight: "10px" }}>
+                    <FaUserCircle style={{ fontSize: "1.5rem", marginRight: "5px" }} /> {user.firstName}
                   </span>
                 }
                 id="basic-nav-dropdown"
-                
+
               >
                 <NavDropdown.Item onClick={handleLogout}>
                   Logout
@@ -119,7 +124,7 @@ function Header() {
               </NavDropdown>
             </Nav>
           )}
-          
+
         </Navbar.Collapse>
       </Container>
     </Navbar>

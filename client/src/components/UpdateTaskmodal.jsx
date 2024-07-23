@@ -21,7 +21,13 @@ function UpdateTaskmodal({ showUpdateModal, handleUpdateModalClose, id, setTasks
   const inputData = async (taskid) => {
     //console.log(taskid)
     try {
-      let res = await axios.put(`${process.env.REACT_APP_BASE_URL}/api/task/${taskid}`, data, { withCredentials: true });
+
+      const token = JSON.parse(localStorage.getItem('token')).token;
+      let res = await axios.put(`${process.env.REACT_APP_BASE_URL}/api/task/${taskid}`, data, {
+        headers: {
+          authorization: `bearer ${token}`
+        }
+      });
       //console.log(`${process.env.REACT_APP_BASE_URL}/api/task/${taskid}`)
 
       handleUpdateModalClose()

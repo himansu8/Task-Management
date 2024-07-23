@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext'
 
 function Login() {
   let navigate = useNavigate();
-  const {  dispatch } = useContext(AuthContext)
+  const { dispatch } = useContext(AuthContext)
   console.log(process.env.REACT_APP_BASE_URL)
   let [userData, setUserData] = useState({
     email: undefined,
@@ -39,10 +39,11 @@ function Login() {
       //   return;
       // }
       let res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/user/login`, userData)
-       console.log(res.data)
-       const { token, details } = res.data;
-       document.cookie = `access_token=${token}; path=/; secure;`;
-      dispatch({ type: "LOGIN_SUCCESS", payload:details })
+      console.log(res.data)
+      const { token, details } = res.data;
+      //  document.cookie = `access_token=${token}; path=/; secure;`;
+      localStorage.setItem('token', JSON.stringify({ token, details }))
+      dispatch({ type: "LOGIN_SUCCESS", payload: details })
       toast.success("You are Loged In !")
       navigate('/');
     }
@@ -120,7 +121,7 @@ function Login() {
               REGISTER NOW
             </Link>
           </Form.Label>
-          
+
         </Form.Group>
         <Button
           variant="warning"
