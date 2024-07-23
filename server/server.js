@@ -14,7 +14,7 @@ const port = 3001;
 app.use(cookieParser())
 
 app.use(express.json());
-var whitelist = ['http://localhost:3001', 'http://43.204.100.160:3001','*']
+var whitelist = ['http://localhost:3000', 'http://43.204.100.160:3000', '*', 'http://0.0.0.0:3000']
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1) {
@@ -29,8 +29,8 @@ const corsOptions = {
 };
 
 
-  //  app.use(cors(corsOptions));
-  // app.options('*', cors(corsOptions));
+app.use(cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
 // app.get('/',(req,res)=>{
 //     res.status(200).send("server started up fine")
@@ -38,15 +38,15 @@ const corsOptions = {
 
 
 app.use('/api/user', userRoute)
-app.use('/api/task',taskRoute)
+app.use('/api/task', taskRoute)
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 
-app.get('/*', express.static(path.join(__dirname, 'build')))
+// app.get('/*', express.static(path.join(__dirname, 'build')))
 
 
-app.listen(port,()=>{
-    console.log(`the server started at port no ${port}`)
+app.listen(port, () => {
+  console.log(`the server started at port no ${port}`)
 })
 
